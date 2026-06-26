@@ -790,22 +790,28 @@ h1.game-title, h1.victory-title {
     .card-name { font-size: 0.6rem; margin-top: 0; }
     
     .arrow { font-size: 1.5rem; }
-    .top-bar { font-size: 0.8rem; padding: 5px; min-height: 60px; }
-    .level-badge { font-size: 0.8rem; padding: 5px 10px; position: static !important; transform: none !important; margin: 0 auto; text-align: center; }
-    .score-container { font-size: 0.8rem; padding: 5px 10px; margin-left: 0 !important; }
-    #btn-music { margin-left: 0 !important; }
     
-    /* Reposition Top Bar Items */
-    .top-bar { justify-content: center; flex-wrap: wrap; gap: 5px; position: relative; }
-    #btn-home { margin-right: 0 !important; margin-left: 0 !important; position: absolute; left: 10px; top: 10px; }
-    #btn-music { position: absolute; right: 10px; top: 10px; }
+    /* Bulletproof Top Bar with CSS Grid */
+    .top-bar { 
+        display: grid; 
+        grid-template-columns: auto 1fr auto; 
+        gap: 5px; 
+        padding: 10px; 
+        min-height: auto;
+        align-items: center;
+        justify-items: center;
+    }
+    .level-badge { font-size: 0.8rem; padding: 5px 10px; position: static !important; transform: none !important; margin: 0; }
+    .score-container { font-size: 0.8rem; padding: 5px 10px; margin: 0 !important; }
+    #btn-home, #btn-music { position: static !important; margin: 0 !important; width: 40px; height: 40px; }
     
-    /* Adjust floating buttons and text */
-    #btn-toggle-aspect { width: 35px !important; height: 35px !important; font-size: 1rem !important; bottom: 5px !important; left: 5px !important; }
-    .credits { font-size: 0.6rem; padding: 4px 8px; bottom: 5px; right: 5px; opacity: 0.7; }
+    /* Prevent floating buttons from overlapping on tiny screens */
+    #btn-toggle-aspect { display: none !important; }
+    .credits { display: none !important; }
     
-    /* Inventory padding so cards aren't hidden by bottom floating elements */
-    .inventory { padding-bottom: 45px; }
+    /* Inventory */
+    .inventory-area { height: auto; }
+    .inventory { position: relative; padding-bottom: 10px; }
     
     /* Mascot sizing */
     .mascot-decor { width: 80px; height: 80px; }
