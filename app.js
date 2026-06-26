@@ -20,24 +20,22 @@ function playTTSChime() {
 
 function speakTTS(text) {
     playTTSChime();
-    setTimeout(() => {
-        try {
-            // Use Google Translate TTS as it guarantees a Thai voice on any device
-            const url = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=th&q=${encodeURIComponent(text)}`;
-            const audio = new Audio(url);
-            audio.play().catch(err => {
-                // Fallback to local OS TTS if Google API fails (e.g., offline)
-                if ('speechSynthesis' in window) {
-                    const utterance = new SpeechSynthesisUtterance(text);
-                    utterance.lang = 'th-TH';
-                    const voices = window.speechSynthesis.getVoices();
-                    const thaiVoice = voices.find(v => v.lang.includes('th') || v.name.includes('Thai'));
-                    if (thaiVoice) utterance.voice = thaiVoice;
-                    window.speechSynthesis.speak(utterance);
-                }
-            });
-        } catch(e) {}
-    }, 300); // Wait 300ms for the chime to play first
+    try {
+        // Use Google Translate TTS as it guarantees a Thai voice on any device
+        const url = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=th&q=${encodeURIComponent(text)}`;
+        const audio = new Audio(url);
+        audio.play().catch(err => {
+            // Fallback to local OS TTS if Google API fails (e.g., offline)
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'th-TH';
+                const voices = window.speechSynthesis.getVoices();
+                const thaiVoice = voices.find(v => v.lang.includes('th') || v.name.includes('Thai'));
+                if (thaiVoice) utterance.voice = thaiVoice;
+                window.speechSynthesis.speak(utterance);
+            }
+        });
+    } catch(e) {}
 }
 
 // 2. Particle System
