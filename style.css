@@ -530,7 +530,7 @@ h1.game-title, h1.victory-title {
     justify-content: center; /* Center the cards */
     align-items: center;
     gap: 15px;
-    padding: 15px 90px; /* Padding to prevent cards from overlapping the TV and Credit buttons */
+    padding: 15px 120px;
     box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -844,8 +844,8 @@ h1.game-title, h1.victory-title {
 /* Credits */
 .credits {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 35px;
+    right: 35px;
     z-index: 1000;
     font-size: 1rem;
     color: #fff;

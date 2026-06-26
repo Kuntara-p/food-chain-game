@@ -18,16 +18,15 @@ function playTTSChime() {
     } catch(e) {}
 }
 
-window.currentTTSAudio = null;
+window.currentTTSAudio = new Audio();
 
 function speakTTS(text) {
     playTTSChime();
     try {
         const url = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=th&q=${encodeURIComponent(text)}`;
-        if (window.currentTTSAudio) {
-            window.currentTTSAudio.pause();
-        }
-        window.currentTTSAudio = new Audio(url);
+        if (!window.currentTTSAudio) window.currentTTSAudio = new Audio();
+        window.currentTTSAudio.pause();
+        window.currentTTSAudio.src = url;
         window.currentTTSAudio.play().catch(err => {
             // Fallback to local OS TTS if Google API fails or is blocked
             if ('speechSynthesis' in window) {
@@ -400,8 +399,9 @@ document.getElementById('btn-start').addEventListener('click', () => {
     if (!window.audioUnlocked) {
         window.audioUnlocked = true;
         try {
-            const unlockAudio = new Audio('data:audio/mp3;base64,//OwgAAAAAAAAAAAAAAAAAAAAA');
-            unlockAudio.play().catch(() => {});
+            if (!window.currentTTSAudio) window.currentTTSAudio = new Audio();
+            window.currentTTSAudio.src = 'data:audio/mp3;base64,//OwgAAAAAAAAAAAAAAAAAAAAA';
+            window.currentTTSAudio.play().catch(() => {});
         } catch(e) {}
         
         if ('speechSynthesis' in window) {
