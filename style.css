@@ -805,9 +805,25 @@ h1.game-title, h1.victory-title {
     .score-container { font-size: 0.8rem; padding: 5px 10px; margin: 0 !important; }
     #btn-home, #btn-music { position: static !important; margin: 0 !important; width: 40px; height: 40px; }
     
-    /* Prevent floating buttons from overlapping on tiny screens */
+    /* Prevent TV button from overlapping on tiny screens */
     #btn-toggle-aspect { display: none !important; }
-    .credits { display: none !important; }
+    
+    /* Restore and reposition credits on mobile to bottom center */
+    .credits { 
+        display: block !important; 
+        position: absolute !important; 
+        bottom: 2px !important; 
+        right: 0 !important; 
+        left: 0 !important; 
+        text-align: center; 
+        width: 100%; 
+        font-size: 0.6rem; 
+        padding: 2px; 
+        background: transparent; 
+        box-shadow: none; 
+        border: none; 
+        opacity: 0.7; 
+    }
     
     /* Inventory */
     .inventory-area { height: auto; }

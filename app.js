@@ -566,6 +566,10 @@ function setupDraggable(el) {
         if (el.dataset.type === 'arrow') return;
         if (el.parentElement && el.parentElement.id === 'card-inventory') return; // Restrict flip in inventory
         
+        // Only allow flip when the food chain is fully completed
+        const btnCheckScore = document.getElementById('btn-check-score');
+        if (btnCheckScore && btnCheckScore.classList.contains('hidden')) return;
+        
         if (el.classList.contains('flipped')) {
             el.classList.remove('flipped');
         } else {
