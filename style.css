@@ -515,6 +515,7 @@ h1.game-title, h1.victory-title {
     justify-content: center;
     position: relative;
     height: 180px;
+    padding-bottom: 40px; /* Room for floating buttons on desktop */
 }
 
 .inventory {
@@ -843,13 +844,13 @@ h1.game-title, h1.victory-title {
 /* Credits */
 .credits {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 5px;
+    right: 5px;
     z-index: 1000;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: #fff;
     background: rgba(0, 0, 0, 0.6);
-    padding: 8px 16px;
+    padding: 6px 12px;
     border-radius: 20px;
     backdrop-filter: blur(4px);
     font-weight: bold;
@@ -857,3 +858,5 @@ h1.game-title, h1.victory-title {
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     border: 2px solid rgba(255,255,255,0.4);
 }
+
+/* 16:9 Aspect Ratio Override */
