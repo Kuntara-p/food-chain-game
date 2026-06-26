@@ -771,15 +771,42 @@ h1.game-title, h1.victory-title {
 }
 
 @media (max-width: 768px) {
-    h1.game-title { font-size: 2.5rem; }
-    .drop-zone { width: 80px; height: 80px; }
-    .card { width: 70px; height: 70px; }
-    .card svg { width: 40px; height: 40px; }
-    .arrow { font-size: 2rem; }
-    .inventory { height: 120px; }
-    .top-bar { font-size: 1rem; }
-    .level-badge { font-size: 1rem; }
-    .score-container { font-size: 1rem; }
+    h1.game-title { font-size: 2rem; }
+    
+    /* Allow wrapping if chain is too long */
+    .play-area { flex-wrap: wrap; align-content: center; gap: 5px; }
+    
+    /* Allow scrolling/wrapping in inventory */
+    .inventory { flex-wrap: wrap; height: auto; max-height: 35vh; overflow-y: auto; justify-content: center; gap: 10px; padding: 10px; }
+    
+    /* Smaller drop zones and arrows */
+    .drop-zone { flex: 0 1 55px; height: 55px; min-width: 45px; border-width: 2px; border-radius: 10px; }
+    .arrow-zone { flex: 0 1 35px; height: 35px; min-width: 30px; }
+    
+    /* Smaller cards */
+    .card { width: 50px; height: 50px; }
+    .card svg { width: 35px; height: 35px; }
+    .card-emoji { font-size: 2rem; margin-bottom: 2px; }
+    .card-name { font-size: 0.6rem; margin-top: 0; }
+    
+    .arrow { font-size: 1.5rem; }
+    .top-bar { font-size: 0.9rem; padding: 5px; flex-direction: column; gap: 5px; }
+    .level-badge { font-size: 0.9rem; padding: 5px 10px; }
+    .score-container { font-size: 0.9rem; padding: 5px 10px; }
+    
+    /* Adjust floating buttons and text */
+    #btn-toggle-aspect { width: 45px !important; height: 45px !important; font-size: 1.3rem !important; bottom: 10px !important; left: 10px !important; }
+    .credits { font-size: 0.8rem; padding: 4px 8px; bottom: 10px; right: 10px; }
+    
+    /* Mascot sizing */
+    .mascot-decor { width: 80px; height: 80px; }
+}
+
+@media (max-height: 500px) {
+    /* Landscape on small mobile */
+    .play-area { padding-top: 10px; }
+    .inventory { max-height: 45vh; }
+    .game-title { margin-top: 10px; font-size: 2rem; }
 }
 
 /* Credits */
