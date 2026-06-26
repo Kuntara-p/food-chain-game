@@ -18,15 +18,20 @@ function playTTSChime() {
     } catch(e) {}
 }
 
+window.currentTTSAudio = null;
+
 function speakTTS(text) {
     playTTSChime();
     try {
-        // Use Google Translate TTS as it guarantees a Thai voice on any device
         const url = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=th&q=${encodeURIComponent(text)}`;
-        const audio = new Audio(url);
-        audio.play().catch(err => {
-            // Fallback to local OS TTS if Google API fails (e.g., offline)
+        if (window.currentTTSAudio) {
+            window.currentTTSAudio.pause();
+        }
+        window.currentTTSAudio = new Audio(url);
+        window.currentTTSAudio.play().catch(err => {
+            // Fallback to local OS TTS if Google API fails or is blocked
             if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'th-TH';
                 const voices = window.speechSynthesis.getVoices();
@@ -142,19 +147,37 @@ function showHint() {
     
     // Determine what's next based on currentStepIndex
     let targetItem = null;
-    let targetName = "ลูกศร";
     
     const allZones = Array.from(document.querySelectorAll('.drop-zone, .arrow-zone'));
     const currentZone = allZones.find(z => parseInt(z.dataset.stepIndex) === currentStepIndex);
     
     if (currentZone) {
         targetItem = currentZone.dataset.target;
-        if (targetItem !== 'right' && targetItem !== 'left') {
-            targetName = level.names[targetItem] || levelDataNames[targetItem] || "สิ่งมีชีวิต";
+    }
+    
+    let hintMsg = "";
+    let speakMsg = "";
+    
+    if (targetItem === 'right' || targetItem === 'left') {
+        hintMsg = "อย่าลืมใส่ <b>ลูกศร</b> เพื่อแสดงการถ่ายทอดพลังงานนะ!";
+        speakMsg = "อย่าลืมใส่ลูกศร เพื่อแสดงการถ่ายทอดพลังงานนะ";
+    } else {
+        const chainIndex = level.chain.indexOf(targetItem);
+        if (chainIndex === 0) {
+            hintMsg = "ห่วงโซ่อาหารต้องเริ่มต้นด้วย <b>ผู้ผลิต (พืช)</b> เสมอนะ!";
+            speakMsg = "ห่วงโซ่อาหารต้องเริ่มต้นด้วย ผู้ผลิต เสมอนะ";
+        } else if (chainIndex > 0) {
+            const prevItem = level.chain[chainIndex - 1];
+            const prevName = level.names[prevItem] || levelDataNames[prevItem] || "สิ่งมีชีวิตก่อนหน้า";
+            hintMsg = `ตัวอะไรเอ่ย ที่จะมากิน <b>${prevName}</b> ต่อไป?`;
+            speakMsg = `ตัวอะไรเอ่ย ที่จะมากิน ${prevName} ต่อไป`;
+        } else {
+            hintMsg = "ลองคิดดูดีๆ ว่าตัวอะไรควรจะอยู่ตรงนี้นะ!";
+            speakMsg = "ลองคิดดูดีๆ ว่าตัวอะไรควรจะอยู่ตรงนี้นะ";
         }
     }
     
-    document.getElementById('owl-hint-text').innerHTML = `เอ๊ะ... ต้องใส่ <b>${targetName}</b> ต่อไปนะ!
+    document.getElementById('owl-hint-text').innerHTML = `เอ๊ะ... ${hintMsg}
         <div style="content: ''; position: absolute; bottom: -10px; right: 40px; border-width: 10px 10px 0; border-style: solid; border-color: #ff9800 transparent transparent transparent;"></div>`;
     document.getElementById('owl-hint-avatar').innerHTML = getAnimalHTML('owl');
     const owlEl = document.getElementById('owl-hint');
@@ -162,7 +185,7 @@ function showHint() {
         owlEl.classList.remove('hidden');
         owlEl.style.display = 'flex';
     }
-    speakTTS(`เอ๊ะ... ต้องใส่ ${targetName} ต่อไปนะ`);
+    speakTTS(`เอ๊ะ... ${speakMsg}`);
 }
 
 const levels = [
@@ -372,6 +395,21 @@ document.getElementById('btn-start').addEventListener('click', () => {
     gameScreen.classList.remove('hidden');
     gameScreen.classList.add('active');
     if(audioCtx.state === 'suspended') audioCtx.resume();
+    
+    // Unlock HTML5 Audio and TTS for Mobile Safari/Chrome
+    if (!window.audioUnlocked) {
+        window.audioUnlocked = true;
+        try {
+            const unlockAudio = new Audio('data:audio/mp3;base64,//OwgAAAAAAAAAAAAAAAAAAAAA');
+            unlockAudio.play().catch(() => {});
+        } catch(e) {}
+        
+        if ('speechSynthesis' in window) {
+            const utterance = new SpeechSynthesisUtterance('');
+            window.speechSynthesis.speak(utterance);
+        }
+    }
+    
     loadLevel();
 });
 document.getElementById('btn-how-to').addEventListener('click', () => {
