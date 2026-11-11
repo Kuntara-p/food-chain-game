@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ตะลุยดินแดนห่วงโซ่อาหารสุดคิวท์</title>
+    <meta name="theme-color" content="#4db6ac">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="ห่วงโซ่อาหาร">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container">
+    <!-- Blurred Background Image Layer -->
+    <div id="bg-layer" class="bg-layer"></div>
+
+    <!-- Background Clouds -->
+    <div class="clouds-bg">
+        <div class="cloud c1"></div>
+        <div class="cloud c2"></div>
+        <div class="cloud c3"></div>
+        <div class="cloud c4"></div>
+        <div class="cloud c5"></div>
+    </div>
+
+    <!-- Credits -->
+    <div class="credits">
+        Kru Por @Bankhuanniang School
+    </div>
+
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen active" style="overflow: hidden; position: relative;">
+        <!-- Background Clouds -->
+        <div class="clouds">
+            <div class="cloud cloud-1">☁️</div>
+            <div class="cloud cloud-2">☁️</div>
+            <div class="cloud cloud-3">☁️</div>
+            <div class="cloud cloud-4">☁️</div>
+            <div class="cloud cloud-5">☁️</div>
+        </div>
+
+        <!-- Floating Mascots -->
+        <div id="decor-1" class="mascot-decor decor-tl"></div>
+        <div id="decor-2" class="mascot-decor decor-tr"></div>
+        <div id="decor-3" class="mascot-decor decor-bl"></div>
+        <div id="decor-4" class="mascot-decor decor-br"></div>
+        <div id="decor-5" class="mascot-decor decor-ml"></div>
+        <div id="decor-6" class="mascot-decor decor-mr"></div>
+
+        <div class="title-container" style="position: relative; z-index: 10;">
+            <h1 class="game-title">ตะลุยดินแดน<br>ห่วงโซ่อาหารสุดคิวท์</h1>
+        </div>
+        <div id="mode-selector" class="mode-selector" style="position: relative; z-index: 10;">
+            <button id="btn-mode-practice" class="mode-pill active" data-mode="practice">🌱 โหมดฝึกหัด</button>
+            <button id="btn-mode-challenge" class="mode-pill" data-mode="challenge">🔥 โหมดทดสอบ</button>
+        </div>
+        <div class="buttons" style="position: relative; z-index: 10; display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap;">
+            <button id="btn-start" class="btn btn-primary bounce" style="font-size: 1.2rem; padding: 10px 20px;">เริ่มการผจญภัย!</button>
+            <button id="btn-level-select" class="btn btn-secondary" style="background: #4db6ac; color: white;">🗺️ เลือกด่าน</button>
+            <button id="btn-encyclopedia" class="btn btn-secondary" style="background: #9c27b0; color: white;">📖 สมุดสะสมการ์ด</button>
+            <button id="btn-how-to" class="btn btn-secondary">วิธีเล่น</button>
+        </div>
+    </div>
+
+    <!-- Level Select Modal -->
+    <div id="modal-level-select" class="screen hidden" style="background: rgba(0,0,0,0.75); display: flex; justify-content: center; align-items: center; z-index: 2000;">
+        <div class="modal-content modal-level-select">
+            <h2 style="color: #00897b; text-align: center; margin-bottom: 10px; font-size: 2rem;">🗺️ เลือกด่านที่ต้องการเล่น</h2>
+            <p id="level-select-mode-label" style="color: #555; margin-bottom: 16px; font-size: 0.95rem;">โหมดปัจจุบัน: 🌱 โหมดฝึกหัด</p>
+            <div id="level-select-grid" class="level-select-grid">
+                <!-- Level cards injected via JS -->
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="btn-close-level-select" class="btn btn-secondary">ปิดหน้าต่าง</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- How To Play Modal -->
+    <div id="modal-how-to" class="screen hidden" style="background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 2000;">
+        <div class="modal-content" style="max-width: 620px; width: 90%; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 35px; text-align: left;">
+            <h2 style="color: #4caf50; text-align: center; margin-bottom: 20px;">📖 วิธีการเล่น</h2>
+            <ul style="font-size: 1.05rem; color: #444; line-height: 1.6; padding-left: 20px; margin-bottom: 25px;">
+                <li style="margin-bottom: 8px;"><b>เลือกโหมดได้ 2 แบบ:</b> <b>โหมดฝึกหัด</b> จะมีกรอบเรืองแสงนำทางทีละช่อง ส่วน <b>โหมดทดสอบ</b> จะปิดไฟใบ้ วางสลับลำดับได้ และมีสัตว์ตัวหลอกปนอยู่ด้วย!</li>
+                <li style="margin-bottom: 8px;"><b>ลากและวาง:</b> ลากการ์ดสิ่งมีชีวิตและลูกศร <b>➡️ ส่งพลังงาน</b> มาเรียงจากซ้ายไปขวาให้ถูกต้อง</li>
+                <li style="margin-bottom: 8px;"><b>คลิกดูบทบาทได้ทันที:</b> เมื่อวางการ์ดลงช่องแล้ว <b>คลิก 1 ครั้ง</b> ที่การ์ดเพื่อพลิกดูว่าเป็น <b>ผู้ผลิต, ผู้บริโภคลำดับที่ 1–4, หรือผู้ย่อยสลาย</b></li>
+                <li style="margin-bottom: 8px;"><b>ไปด่านต่อไป:</b> เมื่อเรียงครบทุกช่อง ให้กดปุ่ม <b>"ไปด่านต่อไป ⏭️"</b> เพื่อดูดาว โบนัสไร้ที่ติ และสรุปบทบาททั้งห่วงโซ่</li>
+                <li style="margin-bottom: 8px;"><b>📖 สมุดสะสมการ์ด:</b> เมื่อเล่นผ่านด่าน สัตว์ที่ปลดล็อกสามารถกดคลิกเพื่อ <b>ฟังเสียงอ่านความรู้</b> ได้ด้วยนะ!</li>
+            </ul>
+            <div style="text-align: center;">
+                <button id="btn-close-how-to" class="btn btn-primary" style="font-size: 1.2rem; padding: 10px 30px;">เข้าใจแล้ว!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Encyclopedia Modal -->
+    <div id="modal-encyclopedia" class="screen hidden" style="background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 2000;">
+        <div class="modal-content" style="max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 30px; border-radius: 20px;">
+            <h2 style="color: #9c27b0; text-align: center; margin-bottom: 20px; font-size: 2.5rem; text-shadow: 2px 2px 0px #fff;">📖 สมุดสะสมการ์ดความรู้</h2>
+            <div id="encyclopedia-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                <!-- Unlocked cards injected here -->
+            </div>
+            <div style="text-align: center;">
+                <button id="btn-close-encyclopedia" class="btn btn-primary" style="font-size: 1.2rem; padding: 10px 30px; background: #9c27b0;">ปิดสมุด</button>
+                <br>
+                <a id="btn-reset-encyclopedia" href="#" style="color: #ff7043; font-size: 0.9rem; text-decoration: underline; margin-top: 15px; display: inline-block;">รีเซ็ตสมุดสะสมใหม่ทั้งหมด</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Confirm Reset Modal -->
+    <div id="modal-confirm-reset" class="screen hidden" style="background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 2100;">
+        <div class="modal-content" style="max-width: 450px; text-align: center; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div style="font-size: 4rem; margin-bottom: 10px;">🗑️</div>
+            <h2 style="color: #ff7043; margin-bottom: 15px;">แน่ใจไหมเอ่ย?</h2>
+            <p style="font-size: 1.1rem; color: #444; margin-bottom: 25px;">ถ้ากดลบแล้ว ข้อมูลการ์ดสัตว์ที่สะสมมาทั้งหมดจะหายไปเลยนะ!</p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button id="btn-confirm-yes" class="btn btn-primary" style="background: #f44336; border-color: #f44336;">ลบเลย!</button>
+                <button id="btn-confirm-no" class="btn btn-secondary" style="background: #e0e0e0; color: #333;">เปลี่ยนใจ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gameplay Screen -->
+    <div id="game-screen" class="screen hidden">
+        <div class="top-bar">
+            <button id="btn-home" class="btn btn-icon" title="หน้าหลัก">🏠</button>
+            <div id="level-indicator" class="level-badge">Level 1: แก๊งฟาร์มแสนสนุก</div>
+            <div class="score-container">
+                <span class="score-icon">⭐</span>
+                <span id="score-text">0</span>
+            </div>
+            <button id="btn-sfx" class="btn btn-icon" title="เปิด/ปิดเสียงเอฟเฟกต์และเสียงพากย์">🔊</button>
+            <button id="btn-music" class="btn btn-icon" title="เปิด/ปิดเพลงประกอบ">🎵</button>
+        </div>
+
+        <div class="play-area" id="drop-zones">
+            <!-- Drop zones and arrows injected here -->
+        </div>
+
+        <div class="message-area hidden" id="level-message"></div>
+
+        <button id="btn-check-score" class="btn btn-primary btn-check-score hidden">ไปด่านต่อไป ⏭️</button>
+
+        <div class="inventory-area">
+            <div class="inventory" id="card-inventory">
+                <!-- Draggable cards and arrows injected here -->
+            </div>
+        </div>
+
+        <!-- Owl Hint System -->
+        <div id="owl-hint" class="owl-hint hidden" title="คลิกเพื่อซ่อนคำใบ้">
+            <div id="owl-hint-text" class="owl-hint-text">
+                เอ๊ะ... ต้องใส่ตัวอะไรนะ?
+                <div class="owl-hint-tail"></div>
+            </div>
+            <div id="owl-hint-avatar" class="owl-hint-avatar">
+                <!-- SVG injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Level Complete Modal -->
+    <div id="level-complete-modal" class="screen hidden" style="background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 2000;">
+        <div class="modal-content modal-level-complete">
+            <h2 style="font-size: 2rem; color: #4caf50; margin-bottom: 10px;">สุดยอด! ผ่านด่านแล้ว 🎉</h2>
+            <div id="star-container" class="star-container">
+                <!-- Stars injected here -->
+            </div>
+            <p id="time-text" style="font-size: 1.15rem; color: #555; margin-bottom: 10px;">ใช้เวลาไป: 0 วินาที</p>
+            <p id="star-message" style="font-size: 1.35rem; font-weight: bold; color: #ff9800; margin-bottom: 15px; text-align: center; line-height: 1.4;"></p>
+            <div id="level-role-summary" class="level-role-summary">
+                <!-- Role badges summary injected here -->
+            </div>
+            <button id="btn-next-level" class="btn btn-primary" style="font-size: 1.4rem; padding: 14px 36px; margin-top: 15px;">ลุยด่านต่อไป!</button>
+        </div>
+    </div>
+
+    <!-- Victory Screen -->
+    <div id="victory-screen" class="screen hidden">
+        <canvas id="confetti-canvas"></canvas>
+        <div class="victory-content">
+            <h1 class="victory-title">ยินดีด้วย!</h1>
+            <p class="victory-subtitle">หนูคือสุดยอดนักนิเวศวิทยาตัวจิ๋ว!</p>
+            <div id="victory-mascots" class="victory-mascots">
+                <!-- All animals injected here -->
+            </div>
+            <div id="victory-stats" class="victory-stats">
+                <!-- Real score, stars, and mistakes summary injected here -->
+            </div>
+            <div id="victory-stars" class="final-score">
+                <span class="star-big bounce">⭐</span>
+                <span class="star-big bounce" style="animation-delay: 0.2s">⭐</span>
+                <span class="star-big bounce" style="animation-delay: 0.4s">⭐</span>
+            </div>
+              <div class="buttons">
+                  <button id="btn-play-again" class="btn btn-primary">เล่นอีกครั้ง</button>
+                  <button id="btn-victory-home" class="btn btn-secondary">กลับหน้าหลัก</button>
+              </div>
+          </div>
+      </div>
+      <button id="btn-toggle-aspect" class="btn btn-icon" style="position: absolute; bottom: 35px; left: 35px; z-index: 9999; width: 45px; height: 45px; font-size: 1.4rem;" title="สลับโหมด 16:9 / เต็มจอ">📺</button>
+    </div> <!-- End app-container -->
+
+    <script src="app.js"></script>
+</body>
+</html>
