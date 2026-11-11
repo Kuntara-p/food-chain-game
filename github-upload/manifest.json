@@ -1,0 +1,25 @@
+{
+  "name": "ตะลุยดินแดนห่วงโซ่อาหารสุดคิวท์",
+  "short_name": "ห่วงโซ่อาหาร",
+  "description": "เกมการศึกษาวิทยาศาสตร์เชิงปฏิสัมพันธ์ เรื่องห่วงโซ่อาหาร 10 ด่าน",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#c8e6c9",
+  "theme_color": "#4db6ac",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
